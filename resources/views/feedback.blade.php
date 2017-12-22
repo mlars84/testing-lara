@@ -38,8 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5.2</div>
-                <a href="/feedback">Click Me</a>
+                <p>You've been clicked, punk.</p>
             </div>
         </div>
     </body>
