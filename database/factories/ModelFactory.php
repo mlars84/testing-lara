@@ -25,3 +25,17 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence
     ];
 });
+
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'roster' => 13
+    ];
+});
+
+$factory->define(App\Player::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'position' => $faker->sentence
+    ];
+});

@@ -62,4 +62,10 @@
 
 ## Testing Collaborators
 
+`./vendor/bin/phpunit --filter test_name_here` to pick a specific test to run
 
+
+## Homework
+
+- remove a player from a team
+- wipe team clean
