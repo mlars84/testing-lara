@@ -24,6 +24,8 @@
 
 - written from a programmers perspective. They are made to ensure that a particular method (or a unit) of a class performs a set of specific tasks.
 
-- assertEquals()
+- assertEquals() 
+- assertCount() : example - $this->assertCount(2, $orders->products());
+- The setUp() and tearDown() template methods are run once for each test method (and on fresh instances) of the test case class.
 
 - /** @test */ annotation to let phpunit know it's a test and you can leave off test before method name ie testProductHasAName can be productHasAName or product_has_a_name
