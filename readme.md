@@ -48,7 +48,7 @@
 
 ## Set up Testing Database
 
-- add a testing DB to config/database.php 
+- add a testing DB to config/database.php:
 ```
 'sqlite_testing' => [
     'driver' => 'sqlite',
@@ -56,6 +56,10 @@
     'prefix' => '',
 ],
 ```
+- $ touch database/testing.sqlite
 - $ php artisan migrate --database sqlite_testing
 - add `<env name="DB_CONNECTION" value="sqlite_testing"/>` to phpunit.xml file
+
+## Testing Collaborators
+
 
