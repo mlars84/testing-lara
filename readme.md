@@ -46,3 +46,16 @@
 - when you write tests for your eloquent models, you will put them in tests/Integration/models. 
 - Wanna make sure you use DatabaseTransactions for each test
 
+## Set up Testing Database
+
+- add a testing DB to config/database.php 
+```
+'sqlite_testing' => [
+    'driver' => 'sqlite',
+    'database' => env('DB_DATABASE', database_path('testing.sqlite')),
+    'prefix' => '',
+],
+```
+- $ php artisan migrate --database sqlite_testing
+- add `<env name="DB_CONNECTION" value="sqlite_testing"/>` to phpunit.xml file
+
