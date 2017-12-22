@@ -29,3 +29,20 @@
 - The setUp() and tearDown() template methods are run once for each test method (and on fresh instances) of the test case class.
 
 - /** @test */ annotation to let phpunit know it's a test and you can leave off test before method name ie testProductHasAName can be productHasAName or product_has_a_name
+
+## Testing Eloquent models / integration tests
+
+- put pieces together and make sure they interact correctly
+- Given: set up the world. Given this world exists - have these records in the DB, etc. 
+- When: i execute this action, 
+- Then: what do I expect to happen
+
+- Always make sure that every test assumes the same world : Make sure the DB looks the same.
+
+### Database Transations
+
+`use Illuminate\Foundation\Testing\DatabaseTransactions;`: Begins new DB transaction and then rolls it back, so you're never actually committing or persisting it directly to DB. Then every test starts from scratch.
+
+- when you write tests for your eloquent models, you will put them in tests/Integration/models. 
+- Wanna make sure you use DatabaseTransactions for each test
+
