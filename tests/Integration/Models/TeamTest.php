@@ -98,4 +98,19 @@ class TeamTest extends TestCase
         // THEN the count should be 0 rather than 2
         $this->assertEquals(0, $team->count());
     }
+
+    /** @test */
+    public function a_team_can_remove_more_than_one_method_at_once()
+    {
+        // GIVEN
+        $team = factory(Team::class)->create(['roster' => 3]);
+        $players = factory(Player::class, 3)->create();
+        $team->add($players);
+
+        // WHEN
+        $team->removePlayer($players->slice(0, 2));
+
+        // THEN
+        $this->assertEquals(1, $team->count());
+    }
 }

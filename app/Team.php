@@ -42,13 +42,16 @@ class Team extends Model
         }
     }
 
-    public function removePlayer($player = null)
+    public function removePlayer($players = null)
     {
-        if (! $player) {
-            return $this->players()->update(['team_id' => null]);
+        if ($players instanceof Player) {
+            return $players->leaveTeam();
         }
-        $player->leaveTeam();
-    }
+
+        $players->each(function($player) {
+            $player->leaveTeam();
+        });
+    } 
 
     public function removeAllPlayers(Players $players)
     {
