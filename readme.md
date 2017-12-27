@@ -65,7 +65,6 @@
 `./vendor/bin/phpunit --filter test_name_here` to pick a specific test to run
 
 
-## Homework
+## Regression Testing
 
-- remove a player from a team
-- wipe team clean
+reproduces a bug you found

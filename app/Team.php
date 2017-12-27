@@ -8,47 +8,44 @@ class Team extends Model
 {
     protected $fillable = ['name', 'roster'];
 
-    public function add($player)
+    public function add($players)
     {
         // add a guard
-        $this->guardAgainstTooManyMembers();
+        $this->guardAgainstTooManyMembers($players);
 
-        if ($player instanceof Player) {
-            return $this->players()->save($player);
-        }
+        $method = $players instanceof Player ? 'save' : 'saveMany';
 
-        $this->players()->saveMany($player);
-
-        //could also refactor 16-20 to:
-        // $method = $player instanceof Player ? 'save' : 'saveMany';
-
-        // $this->players()->$method($player);
+        $this->members()->$method($players);
     }
 
-    public function players()
+    public function members()
     {
         return $this->hasMany(PLayer::class);
     }
 
     public function count()
     {
-        return $this->players()->count();
+        return $this->members()->count();
     }
 
-    protected function guardAgainstTooManyMembers()
+    protected function guardAgainstTooManyMembers($players)
     {
-        if ($this->count() >= $this->roster) {
+        $numUsersToAdd  = ($players instanceof Player) ? 1 : $players->count();
+
+        $newTeamCount = $this->count() + $numUsersToAdd;
+        
+        if ($newTeamCount > $this->roster) {
             throw new \Exception('This exceeds the maximum roster size!');
         }
     }
 
-    public function removePlayer($players = null)
+    public function removePlayer($members = null)
     {
-        if ($players instanceof Player) {
-            return $players->leaveTeam();
+        if ($members instanceof Player) {
+            return $members->leaveTeam();
         }
 
-        $players->each(function($player) {
+        $members->each(function($player) {
             $player->leaveTeam();
         });
 
@@ -60,12 +57,12 @@ class Team extends Model
 
     public function restart()
     {
-        return $this->players()->update(['team_id' => null]);
+        return $this->members()->update(['team_id' => null]);
     }
 
     public function removeAllPlayers(Players $players)
     {
-        $this->players['team_id'] = null;
+        $this->members['team_id'] = null;
 
     }
 } 

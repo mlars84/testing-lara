@@ -70,6 +70,18 @@ class TeamTest extends TestCase
     }
 
     /** @test */
+    public function when_adding_many_players_at_once_you_still_may_not_exceed_the_maximum_size()
+    {
+        $team = factory(Team::class)->create(['roster' => 2]);
+
+        $players = factory(Player::class, 3)->create();
+
+        $this->setExpectedException('Exception');
+
+        $team->add($players);
+    }
+
+    /** @test */
     public function it_can_remove_a_player()
     {
         // GIVEN we have a team of two players
