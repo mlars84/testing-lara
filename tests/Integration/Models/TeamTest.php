@@ -93,14 +93,14 @@ class TeamTest extends TestCase
         $team->add($players);  
 
         // WHEN we remove all players
-        $team->removePlayer();
+        $team->restart();
 
         // THEN the count should be 0 rather than 2
         $this->assertEquals(0, $team->count());
     }
 
     /** @test */
-    public function a_team_can_remove_more_than_one_method_at_once()
+    public function it_can_remove_more_than_one_player_at_once()
     {
         // GIVEN
         $team = factory(Team::class)->create(['roster' => 3]);

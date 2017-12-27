@@ -51,12 +51,21 @@ class Team extends Model
         $players->each(function($player) {
             $player->leaveTeam();
         });
+
+        //51-53 could be refactored to
+        // $this->players()
+        //      ->whereIn('id', $players->pluck('id'))
+        //      ->update(['team_id' => null]);
     } 
+
+    public function restart()
+    {
+        return $this->players()->update(['team_id' => null]);
+    }
 
     public function removeAllPlayers(Players $players)
     {
         $this->players['team_id'] = null;
 
     }
-
-}
+} 
