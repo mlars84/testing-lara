@@ -11,7 +11,7 @@ class Team extends Model
     public function add($players)
     {
         // add a guard
-        $this->guardAgainstTooManyMembers($players);
+        $this->guardAgainstTooManyMembers($this->extractNewPlayersCount($players));
 
         $method = $players instanceof Player ? 'save' : 'saveMany';
 
@@ -28,15 +28,23 @@ class Team extends Model
         return $this->members()->count();
     }
 
-    protected function guardAgainstTooManyMembers($players)
+    public function maximumSize()
     {
-        $numUsersToAdd  = ($players instanceof Player) ? 1 : $players->count();
+        return $this->roster;
+    }
 
-        $newTeamCount = $this->count() + $numUsersToAdd;
+    protected function guardAgainstTooManyMembers($newPlayersCount)
+    {
+        $newTeamCount = $this->count() + $newPlayersCount;
         
-        if ($newTeamCount > $this->roster) {
+        if ($newTeamCount > $this->maximumSize()) {
             throw new \Exception('This exceeds the maximum roster size!');
         }
+    }
+
+    protected function extractNewPlayersCount($players)
+    {
+        return ($players instanceof Player) ? 1 : count($players);
     }
 
     public function removePlayer($members = null)
