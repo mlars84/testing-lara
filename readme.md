@@ -69,4 +69,6 @@
 
 - reproduces a bug you found
 
-## 
+## Test Method Refactoring
+
+If every test requires some kind of setup, defer to `setup()` method
